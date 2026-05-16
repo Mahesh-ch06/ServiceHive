@@ -21,7 +21,7 @@ const buildLeadFilter = (filters: LeadFilters) => {
   return query;
 };
 
-const resolveSort = (sort?: "latest" | "oldest") => {
+const resolveSort = (sort?: "latest" | "oldest"): Record<"createdAt", 1 | -1> => {
   if (sort === "oldest") {
     return { createdAt: 1 };
   }

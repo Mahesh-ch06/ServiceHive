@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import { sign } from "jsonwebtoken";
 import { User } from "../models/User";
 import { ApiError } from "../utils/ApiError";
 import { comparePassword, hashPassword } from "../utils/password";
@@ -8,7 +8,7 @@ import type { UserRole } from "../constants";
 const ADMIN_EMAIL = env.adminEmail;
 
 const signToken = (userId: string, role: UserRole) => {
-  return jwt.sign({ userId, role }, env.jwtSecret, {
+  return sign({ userId, role }, env.jwtSecret, {
     expiresIn: env.jwtExpiresIn
   });
 };
