@@ -1,0 +1,17 @@
+{
+  "name": "smart-leads-dashboard",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev:client": "npm --workspace client run dev",
+    "dev:server": "npm --workspace server run dev",
+    "build": "npm --workspace client run build && npm --workspace server run build",
+    "start": "npm --workspace server run start"
+  },
+  "dependencies": {
+    "mongodb": "^7.2.0"
+  }
+}
