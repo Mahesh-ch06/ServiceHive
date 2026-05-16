@@ -5,7 +5,7 @@ import { comparePassword, hashPassword } from "../utils/password";
 import { env } from "../config/env";
 import type { UserRole } from "../constants";
 
-const ADMIN_EMAIL = "maheshch1094@gmail.com";
+const ADMIN_EMAIL = env.adminEmail;
 
 const signToken = (userId: string, role: UserRole) => {
   return jwt.sign({ userId, role }, env.jwtSecret, {
