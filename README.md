@@ -27,6 +27,9 @@ Backend: Node.js, Express, TypeScript, MongoDB, Mongoose, JWT, bcrypt
 Frontend runs on localhost:5173
 Backend runs on localhost:5000
 
+## Live Demo
+- https://servicehive-cap8.onrender.com
+
 ## Docker
 - docker compose up --build
 
