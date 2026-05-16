@@ -38,11 +38,38 @@ Server:
 - PORT
 - MONGO_URI
 - JWT_SECRET
+- ADMIN_EMAIL
 - JWT_EXPIRES_IN
 - CLIENT_URL
 
 Client:
 - VITE_API_URL
+
+## Docker
+The project already includes a `docker-compose.yml` and `Dockerfile` for both `client` and `server`.
+
+To run locally with Docker:
+```bash
+docker compose up --build
+```
+
+The services will be available on:
+- Frontend: http://localhost:5173
+- Backend: http://localhost:5000
+- MongoDB: mongodb://localhost:27017
+
+## Vercel / deployed frontend
+For Vercel or another hosted frontend, set `VITE_API_URL` to your backend URL, for example:
+```env
+VITE_API_URL=https://your-backend-url.com
+```
+
+If the backend is also deployed separately, configure the backend service with:
+- `MONGO_URI`
+- `JWT_SECRET`
+- `ADMIN_EMAIL`
+- `CLIENT_URL` (must match the deployed frontend URL)
+- `JWT_EXPIRES_IN`
 
 ## API Documentation
 Auth
