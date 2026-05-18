@@ -18,7 +18,18 @@ const getEnvList = (key: string, fallback?: string) => {
     .filter(Boolean);
 };
 
-const clientUrls = getEnvList("CLIENT_URL", "http://localhost:5173");
+const defaultClientUrls = [
+  "http://localhost:5173",
+  "https://client-fawn-eta-71.vercel.app",
+  "https://client-5wyr4h75d-mahesh-ch06s-projects.vercel.app"
+];
+
+const clientUrls = Array.from(
+  new Set([
+    ...defaultClientUrls,
+    ...getEnvList("CLIENT_URL", "")
+  ])
+);
 
 export const env = {
   port: Number(getEnv("PORT", "5000")),
