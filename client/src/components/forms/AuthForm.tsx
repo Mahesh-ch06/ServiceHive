@@ -1,9 +1,12 @@
 import { useForm } from "react-hook-form";
+import type { FieldErrors } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "../common/Input";
 import Button from "../common/Button";
 import { loginSchema, registerSchema } from "../../validations/authSchema";
 import type { LoginValues, RegisterValues } from "../../validations/authSchema";
+
+type RegisterErrors = FieldErrors<RegisterValues>;
 
 interface AuthFormProps {
   mode: "login" | "register";
@@ -27,7 +30,7 @@ const AuthForm = ({ mode, onSubmit, isLoading }: AuthFormProps) => {
         <Input
           label="Full name"
           placeholder="Ava Hart"
-          error={errors.name?.message}
+          error={(errors as RegisterErrors).name?.message}
           {...register("name")}
         />
       )}
@@ -50,7 +53,7 @@ const AuthForm = ({ mode, onSubmit, isLoading }: AuthFormProps) => {
           label="Confirm password"
           type="password"
           placeholder="Re-enter your password"
-          error={(errors as Record<string, { message?: string }>).confirmPassword?.message}
+          error={(errors as RegisterErrors).confirmPassword?.message}
           {...register("confirmPassword")}
         />
       )}
