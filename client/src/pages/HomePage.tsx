@@ -90,25 +90,27 @@ const HomePage = () => {
                   ))}
                 </div>
                 {/* Fake table */}
-                <div className="mt-4 rounded-lg border border-white/[0.04] bg-white/[0.02]">
-                  <div className="grid grid-cols-5 gap-2 border-b border-white/[0.04] px-4 py-2.5">
-                    {["Lead", "Email", "Status", "Source", "Date"].map((h) => (
-                      <p key={h} className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">{h}</p>
+                <div className="mt-4 rounded-lg border border-white/[0.04] bg-white/[0.02] overflow-x-auto">
+                  <div className="min-w-[600px]">
+                    <div className="grid grid-cols-5 gap-2 border-b border-white/[0.04] px-4 py-2.5">
+                      {["Lead", "Email", "Status", "Source", "Date"].map((h) => (
+                        <p key={h} className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">{h}</p>
+                      ))}
+                    </div>
+                    {[
+                      { name: "Ananya S.", email: "ananya@co.in", status: "New", sc: "badge-new", src: "Website" },
+                      { name: "Rahul M.", email: "rahul@mail.io", status: "Qualified", sc: "badge-qualified", src: "Referral" },
+                      { name: "Priya K.", email: "priya@dev.co", status: "Contacted", sc: "badge-contacted", src: "Instagram" },
+                    ].map((r) => (
+                      <div key={r.name} className="grid grid-cols-5 items-center gap-2 border-b border-white/[0.02] px-4 py-3">
+                        <p className="text-xs font-medium text-white">{r.name}</p>
+                        <p className="text-[11px] text-slate-500">{r.email}</p>
+                        <span className={`justify-self-start rounded-full px-2 py-0.5 text-[10px] font-medium ${r.sc}`}>{r.status}</span>
+                        <p className="text-[11px] text-slate-400">{r.src}</p>
+                        <p className="text-[11px] text-slate-500">17 May 2026</p>
+                      </div>
                     ))}
                   </div>
-                  {[
-                    { name: "Ananya S.", email: "ananya@co.in", status: "New", sc: "badge-new", src: "Website" },
-                    { name: "Rahul M.", email: "rahul@mail.io", status: "Qualified", sc: "badge-qualified", src: "Referral" },
-                    { name: "Priya K.", email: "priya@dev.co", status: "Contacted", sc: "badge-contacted", src: "Instagram" },
-                  ].map((r) => (
-                    <div key={r.name} className="grid grid-cols-5 items-center gap-2 border-b border-white/[0.02] px-4 py-3">
-                      <p className="text-xs font-medium text-white">{r.name}</p>
-                      <p className="text-[11px] text-slate-500">{r.email}</p>
-                      <span className={`justify-self-start rounded-full px-2 py-0.5 text-[10px] font-medium ${r.sc}`}>{r.status}</span>
-                      <p className="text-[11px] text-slate-400">{r.src}</p>
-                      <p className="text-[11px] text-slate-500">17 May 2026</p>
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>
