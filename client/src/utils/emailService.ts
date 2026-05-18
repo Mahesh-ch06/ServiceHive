@@ -22,16 +22,23 @@ export const sendResetEmail = async (params: ResetEmailParams): Promise<boolean>
     return false;
   }
 
-  await emailjs.send(
-    SERVICE_ID,
-    TEMPLATE_ID,
-    {
-      to_email: params.toEmail,
-      to_name: params.toName || params.toEmail,
-      reset_link: params.resetLink
-    },
-    PUBLIC_KEY
-  );
-
-  return true;
+  try {
+    await emailjs.send(
+      SERVICE_ID,
+      TEMPLATE_ID,
+      {
+        to_email: params.toEmail,
+        to_name: params.toName || params.toEmail.split("@")[0],
+        reset_link: params.resetLink,
+        user_email: params.toEmail,
+        reset_token: params.resetLink.split("token=")[1] || ""
+      },
+      PUBLIC_KEY
+    );
+    return true;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error("EmailJS send failed:", error);
+    return false;
+  }
 };

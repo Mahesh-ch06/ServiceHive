@@ -26,6 +26,8 @@ const ForgotPasswordPage = () => {
         });
         if (sent) {
           toast.success("Reset email sent!");
+        } else {
+          toast.error("Email delivery failed. Check your email service configuration.");
         }
       }
 
