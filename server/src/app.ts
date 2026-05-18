@@ -14,13 +14,19 @@ app.use(helmet());
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || env.clientUrls.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"), false);
+      if (!origin) {
+        return callback(null, true);
       }
+
+      if (env.clientUrls.includes(origin)) {
+        return callback(null, origin);
+      }
+
+      return callback(new Error("Not allowed by CORS"), false);
     },
-    credentials: true
+    credentials: true,
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    allowedHeaders: ["Content-Type"]
   })
 );
 app.use(express.json({ limit: "1mb" }));
