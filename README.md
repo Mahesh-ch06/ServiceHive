@@ -40,7 +40,7 @@ Server:
 - JWT_SECRET
 - ADMIN_EMAIL
 - JWT_EXPIRES_IN
-- CLIENT_URL
+- CLIENT_URL (comma-separated list of allowed frontend origins, e.g. http://localhost:5173,https://your-vercel-app.vercel.app)
 
 Client:
 - VITE_API_URL

@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useAuthStore } from "../store/authStore";
 
-const rawApiUrl = import.meta.env.VITE_API_URL;
-const normalizedApiUrl = rawApiUrl
-  ? rawApiUrl.replace(/\/+$|\/$/, "")
-  : `${window.location.origin.replace(/:\d+$/, ':5000')}`;
+const defaultApiUrl = import.meta.env.DEV
+  ? "http://localhost:5000"
+  : "https://servicehive-cap8.onrender.com";
+
+const rawApiUrl = (import.meta.env.VITE_API_URL ?? "").trim() || defaultApiUrl;
+const normalizedApiUrl = rawApiUrl.replace(/\/+$/g, "");
 const base = normalizedApiUrl.endsWith("/api")
   ? normalizedApiUrl
   : `${normalizedApiUrl}/api`;
