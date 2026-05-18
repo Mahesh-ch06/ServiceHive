@@ -9,6 +9,7 @@ import {
   listLeadsForExport,
   updateLead
 } from "../services/leadService";
+import { getLeadStats } from "../services/leadService";
 import { buildLeadCsv } from "../utils/csv";
 import type { LeadFilters } from "../types/lead";
 
@@ -64,4 +65,9 @@ export const exportCsv = asyncHandler(async (req, res) => {
   res.header("Content-Type", "text/csv");
   res.attachment("leads.csv");
   res.send(csv);
+});
+
+export const stats = asyncHandler(async (_req, res) => {
+  const data = await getLeadStats();
+  res.status(200).json(apiResponse(true, "Stats fetched", data));
 });

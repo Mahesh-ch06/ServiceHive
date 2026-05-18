@@ -5,6 +5,7 @@ import {
   getById,
   list,
   remove,
+  stats,
   update
 } from "../controllers/leadController";
 import { authenticate } from "../middleware/auth";
@@ -20,6 +21,7 @@ const router = Router();
 
 router.use(authenticate);
 
+router.get("/stats", stats);
 router.get("/export", validateRequest({ query: leadQuerySchema }), exportCsv);
 router.get("/", validateRequest({ query: leadQuerySchema }), list);
 router.get("/:id", validateRequest({ params: leadParamsSchema }), getById);

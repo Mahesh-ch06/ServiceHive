@@ -6,6 +6,7 @@ import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
 import LeadsPage from "../pages/LeadsPage";
 import LeadDetailPage from "../pages/LeadDetailPage";
+import AnalyticsPage from "../pages/AnalyticsPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
@@ -13,10 +14,8 @@ import PublicRoute from "./PublicRoute";
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* Public landing page */}
       <Route path="/" element={<HomePage />} />
 
-      {/* Auth pages — redirect to dashboard if already logged in */}
       <Route element={<PublicRoute />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -24,9 +23,9 @@ const AppRoutes = () => {
         <Route path="/reset-password" element={<ResetPasswordPage />} />
       </Route>
 
-      {/* Protected dashboard routes */}
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<LeadsPage />} />
+        <Route path="/dashboard/analytics" element={<AnalyticsPage />} />
         <Route path="/dashboard/leads/:id" element={<LeadDetailPage />} />
       </Route>
 

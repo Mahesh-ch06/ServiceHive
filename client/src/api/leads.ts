@@ -42,3 +42,14 @@ export const exportLeads = async (filters: LeadFilters) => {
   });
   return response.data as Blob;
 };
+
+export interface LeadStats {
+  total: number;
+  byStatus: Record<string, number>;
+  bySource: Record<string, number>;
+}
+
+export const fetchLeadStats = async (): Promise<LeadStats> => {
+  const response = await apiClient.get<ApiResponse<LeadStats>>("/leads/stats");
+  return response.data.data;
+};

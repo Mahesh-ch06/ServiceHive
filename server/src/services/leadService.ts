@@ -66,3 +66,23 @@ export const updateLead = async (id: string, data: Partial<LeadDocument>) => {
 export const deleteLead = async (id: string) => {
   return Lead.findByIdAndDelete(id);
 };
+
+export const getLeadStats = async () => {
+  const [total, byStatus, bySource] = await Promise.all([
+    Lead.countDocuments(),
+    Lead.aggregate([{ $group: { _id: "$status", count: { $sum: 1 } } }]),
+    Lead.aggregate([{ $group: { _id: "$source", count: { $sum: 1 } } }])
+  ]);
+
+  const statusMap: Record<string, number> = {};
+  for (const item of byStatus) {
+    statusMap[item._id] = item.count;
+  }
+
+  const sourceMap: Record<string, number> = {};
+  for (const item of bySource) {
+    sourceMap[item._id] = item.count;
+  }
+
+  return { total, byStatus: statusMap, bySource: sourceMap };
+};
