@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
   font-family: "DM Sans", "Segoe UI", sans-serif;
 }
 
@@ -26,8 +26,167 @@ body {
   border-radius: 8px;
 }
 
+/* ── Surface Cards ── */
 .card-surface {
   background: linear-gradient(160deg, rgba(27, 35, 56, 0.88), rgba(11, 15, 26, 0.92));
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 24px 60px rgba(8, 12, 22, 0.45);
+}
+
+/* ── Glassmorphism ── */
+.glass {
+  background: rgba(27, 35, 56, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-strong {
+  background: rgba(18, 24, 41, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ── Gradient Text ── */
+.gradient-text {
+  background: linear-gradient(135deg, #ff7a1a, #ff9a56);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-blue {
+  background: linear-gradient(135deg, #60a5fa, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Status Badge Colors ── */
+.badge-new {
+  background: rgba(52, 211, 153, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.2);
+}
+
+.badge-contacted {
+  background: rgba(96, 165, 250, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(96, 165, 250, 0.2);
+}
+
+.badge-qualified {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+.badge-lost {
+  background: rgba(248, 113, 113, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.2);
+}
+
+/* ── Animations ── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide-in-left {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out both;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s ease-out both;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.2s ease-out both;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.3s ease-out both;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 30%, rgba(255,255,255,0.04) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Stagger children */
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 60ms; }
+.stagger > *:nth-child(3) { animation-delay: 120ms; }
+.stagger > *:nth-child(4) { animation-delay: 180ms; }
+.stagger > *:nth-child(5) { animation-delay: 240ms; }
+.stagger > *:nth-child(6) { animation-delay: 300ms; }
+.stagger > *:nth-child(7) { animation-delay: 360ms; }
+.stagger > *:nth-child(8) { animation-delay: 420ms; }
+
+/* ── Subtle glow effects ── */
+.glow-brand {
+  box-shadow: 0 0 40px rgba(255, 122, 26, 0.15);
+}
+
+.glow-blue {
+  box-shadow: 0 0 40px rgba(96, 165, 250, 0.1);
+}
+
+/* ── Auth page animated gradient background ── */
+.auth-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(255, 122, 26, 0.08), transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(96, 165, 250, 0.06), transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(129, 140, 248, 0.05), transparent 50%);
+  pointer-events: none;
+}
+
+/* ── Hover lift ── */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
 }

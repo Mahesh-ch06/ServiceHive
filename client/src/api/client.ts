@@ -32,6 +32,26 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401) {
       useAuthStore.getState().logout();
     }
+    // Extract backend error message for better user feedback
+    const backendMessage =
+      error.response?.data?.message ??
+      error.response?.data?.error ??
+      error.message;
+    if (backendMessage) {
+      error.backendMessage = backendMessage;
+    }
     return Promise.reject(error);
   }
 );
+
+/** Extract a user-friendly error message from an API error */
+export const getErrorMessage = (error: unknown, fallback: string): string => {
+  if (axios.isAxiosError(error)) {
+    return (
+      error.response?.data?.message ??
+      error.response?.data?.error ??
+      fallback
+    );
+  }
+  return fallback;
+};

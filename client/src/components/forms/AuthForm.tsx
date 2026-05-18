@@ -13,9 +13,11 @@ interface AuthFormProps {
 
 const AuthForm = ({ mode, onSubmit, isLoading }: AuthFormProps) => {
   const schema = mode === "login" ? loginSchema : registerSchema;
-  const { register, handleSubmit, formState } = useForm<
-    LoginValues | RegisterValues
-  >({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<LoginValues | RegisterValues>({
     resolver: zodResolver(schema)
   });
 
@@ -25,25 +27,44 @@ const AuthForm = ({ mode, onSubmit, isLoading }: AuthFormProps) => {
         <Input
           label="Full name"
           placeholder="Ava Hart"
-          error={formState.errors.name?.message}
+          error={errors.name?.message}
           {...register("name")}
         />
       )}
       <Input
         label="Email"
+        type="email"
         placeholder="ava@company.com"
-        error={formState.errors.email?.message}
+        error={errors.email?.message}
         {...register("email")}
       />
       <Input
         label="Password"
         type="password"
         placeholder="Minimum 8 characters"
-        error={formState.errors.password?.message}
+        error={errors.password?.message}
         {...register("password")}
       />
-      <Button type="submit" disabled={isLoading} className="w-full">
-        {isLoading ? "Working..." : mode === "login" ? "Login" : "Create account"}
+      {mode === "register" && (
+        <Input
+          label="Confirm password"
+          type="password"
+          placeholder="Re-enter your password"
+          error={(errors as Record<string, { message?: string }>).confirmPassword?.message}
+          {...register("confirmPassword")}
+        />
+      )}
+      <Button type="submit" disabled={isLoading} className="w-full mt-2">
+        {isLoading ? (
+          <span className="flex items-center justify-center gap-2">
+            <span className="h-4 w-4 animate-spin rounded-full border-2 border-ink-900 border-t-transparent" />
+            Working...
+          </span>
+        ) : mode === "login" ? (
+          "Sign in"
+        ) : (
+          "Create account"
+        )}
       </Button>
     </form>
   );

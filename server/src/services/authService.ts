@@ -1,4 +1,5 @@
 import { sign } from "jsonwebtoken";
+import crypto from "crypto";
 import { User } from "../models/User";
 import { ApiError } from "../utils/ApiError";
 import { comparePassword, hashPassword } from "../utils/password";
@@ -68,4 +69,44 @@ export const loginUser = async (email: string, password: string) => {
     },
     token
   };
+};
+
+export const forgotPassword = async (email: string) => {
+  const user = await User.findOne({ email: email.toLowerCase() });
+  if (!user) {
+    // Don't reveal whether email exists
+    return { message: "If this email is registered, a reset link has been sent." };
+  }
+
+  const resetToken = crypto.randomBytes(32).toString("hex");
+  const resetTokenExpiry = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+
+  user.resetToken = resetToken;
+  user.resetTokenExpiry = resetTokenExpiry;
+  await user.save();
+
+  // In production, send email with reset link containing the token
+  // For demo, we return the token in the response
+  return {
+    message: "If this email is registered, a reset link has been sent.",
+    resetToken // Remove in production — only for demo/testing
+  };
+};
+
+export const resetPassword = async (token: string, newPassword: string) => {
+  const user = await User.findOne({
+    resetToken: token,
+    resetTokenExpiry: { $gt: new Date() }
+  });
+
+  if (!user) {
+    throw new ApiError("Invalid or expired reset token", 400);
+  }
+
+  user.password = await hashPassword(newPassword);
+  user.resetToken = undefined;
+  user.resetTokenExpiry = undefined;
+  await user.save();
+
+  return { message: "Password reset successfully" };
 };

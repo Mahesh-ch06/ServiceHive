@@ -1,8 +1,11 @@
 const Loader = () => {
   return (
-    <div className="flex items-center justify-center gap-2 py-12 text-sm text-slate-200">
-      <span className="h-5 w-5 animate-spin rounded-full border-2 border-brand-500 border-t-transparent" />
-      Loading...
+    <div className="flex flex-col items-center justify-center gap-3 py-16 animate-fade-in">
+      <div className="relative h-10 w-10">
+        <div className="absolute inset-0 rounded-full border-2 border-white/5" />
+        <div className="absolute inset-0 animate-spin rounded-full border-2 border-transparent border-t-brand-500" />
+      </div>
+      <span className="text-sm text-slate-400">Loading...</span>
     </div>
   );
 };

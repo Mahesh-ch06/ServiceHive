@@ -6,6 +6,8 @@ export interface UserDocument extends Document {
   email: string;
   password: string;
   role: UserRole;
+  resetToken?: string;
+  resetTokenExpiry?: Date;
 }
 
 const userSchema = new Schema<UserDocument>(
@@ -13,7 +15,9 @@ const userSchema = new Schema<UserDocument>(
     name: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true, lowercase: true },
     password: { type: String, required: true },
-    role: { type: String, enum: ["admin", "sales"], default: "sales" }
+    role: { type: String, enum: ["admin", "sales"], default: "sales" },
+    resetToken: { type: String, default: undefined },
+    resetTokenExpiry: { type: Date, default: undefined }
   },
   { timestamps: true }
 );

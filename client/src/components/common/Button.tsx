@@ -11,15 +11,19 @@ const Button = ({ variant = "primary", className, ...props }: ButtonProps) => {
   return (
     <button
       className={clsx(
-        "inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500",
-        "disabled:cursor-not-allowed disabled:opacity-60",
+        "inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold",
+        "transition-all duration-200",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/50",
+        "disabled:cursor-not-allowed disabled:opacity-50",
+        "active:scale-[0.97]",
         variant === "primary" &&
-          "bg-brand-500 text-ink-900 hover:bg-brand-600",
+          "bg-gradient-to-r from-brand-500 to-brand-600 text-white shadow-lg shadow-brand-500/20 hover:shadow-brand-500/30 hover:brightness-110",
         variant === "secondary" &&
-          "bg-ink-700 text-white hover:bg-ink-600",
-        variant === "ghost" && "bg-transparent text-white hover:bg-ink-700",
-        variant === "danger" && "bg-red-500 text-white hover:bg-red-600",
+          "border border-white/10 bg-ink-700/80 text-white hover:bg-ink-600 hover:border-white/15",
+        variant === "ghost" &&
+          "bg-transparent text-slate-300 hover:bg-white/5 hover:text-white",
+        variant === "danger" &&
+          "bg-red-500/15 text-red-400 border border-red-500/20 hover:bg-red-500/25",
         className
       )}
       {...props}
